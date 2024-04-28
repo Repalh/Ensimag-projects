@@ -1,0 +1,109 @@
+/*
+uint16_t val_binaire(uint8_t b15, uint8_t b14, uint8_t b13, uint8_t b12,
+                     uint8_t b11, uint8_t b10, uint8_t b9, uint8_t b8,
+                     uint8_t b7, uint8_t b6, uint8_t b5, uint8_t b4,
+                     uint8_t b3, uint8_t b2, uint8_t b1, uint8_t b0)
+{
+    return
+      (b15 << 15) | (b14 << 14) | (b13 << 13) | (b12 << 12) | (b11 << 11) | (b10 << 10) | (b9 << 9) | (b8 << 8)
+      | (b7 << 7) | (b6 << 6) | (b5 << 5) | (b4 << 4) | (b3 << 3) | (b2 << 2) | (b1 << 1) | b0;
+}
+*/
+
+    .text
+    .globl val_binaire
+/*
+uint16_t val_binaire(uint8_t b15, uint8_t b14, uint8_t b13, uint8_t b12,
+                     uint8_t b11, uint8_t b10, uint8_t b9, uint8_t b8,
+                     uint8_t b7, uint8_t b6, uint8_t b5, uint8_t b4,
+                     uint8_t b3, uint8_t b2, uint8_t b1, uint8_t b0); */
+/* DEBUT DU CONTEXTE
+Fonction :
+    val_binaire : feuille
+Contexte :
+    ra : pile *(sp+32)
+    b15 : registre a1; pile *(sp+28)
+    b14 : registre a1; pile *(sp+24)
+    b13 : registre a1; pile *(sp+20)
+    b12 : registre a1; pile *(sp+16)
+    b11 : registre a1; pile *(sp+12)
+    b10 : registre a1; pile *(sp+8)
+    b9 : registre a1; pile *(sp+4)
+    b8 : registre a1; pile *(sp+0)
+    b7 : registre a1; pile *(sp+36)
+    b6 : registre a1; pile *(sp+40)
+    b5 : registre a1; pile *(sp+44)
+    b4 : registre a1; pile *(sp+48)
+    b3 : registre a1; pile *(sp+52)
+    b2 : registre a1; pile *(sp+56)
+    b1 : registre a1; pile *(sp+60)
+    b0 : registre a1; pile *(sp+64)
+FIN DU CONTEXTE */
+val_binaire:
+    sw a7, 28(sp)
+    sw a6, 24(sp)
+    sw a5, 20(sp)
+    sw a4, 16(sp)
+    sw a3, 12(sp)
+    sw a2, 8(sp)
+    sw a1, 4(sp)
+    sw a0, 0(sp)
+val_binaire_fin_prologue:
+    slli a7, a7, 15
+    slli a6, a6, 14
+    slli a5, a5, 13
+    slli a4, a4, 12
+    slli a3, a3, 11
+    slli a2, a2, 10
+    slli a1, a1, 9
+    slli a0, a0, 8
+    or a0, a0, a1
+    or a0, a0, a2
+    or a0, a0, a3
+    or a0, a0, a4
+    or a0, a0, a5
+    or a0, a0, a6
+    or a0, a0, a7
+
+    li t1, 0x00000FFF
+
+    lw t0, 36(sp)
+    and t0, t0, t1
+    slli t0, t0, 7
+    or a0, a0, t0
+
+    lw t0, 40(sp)
+    and t0, t0, t1
+    slli t0, t0, 6
+    or a0, a0, t0
+
+    lw t0, 44(sp)
+    and t0, t0, t1
+    slli t0, t0, 5
+    or a0, a0, t0
+
+    lw t0, 48(sp)
+    and t0, t0, t1
+    slli t0, t0, 4
+    or a0, a0, t0
+
+    lw t0, 52(sp)
+    and t0, t0, t1
+    slli t0, t0, 3
+    or a0, a0, t0
+
+    lw t0, 56(sp)
+    and t0, t0, t1
+    slli t0, t0, 2
+    or a0, a0, t0
+
+    lw t0, 60(sp)
+    and t0, t0, t1
+    slli t0, t0, 1
+    or a0, a0, t0
+
+    lw t0, 64(sp)
+    and t0, t0, t1
+    or a0, a0, t0
+val_binaire_debut_epilogue:
+    ret
