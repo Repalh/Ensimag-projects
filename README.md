@@ -1,2 +1,2 @@
 # Ensimag-projects
-This lrepository contains every project I did while studying at ENSIMAG.
+This repository contains every project I did while studying at ENSIMAG.
